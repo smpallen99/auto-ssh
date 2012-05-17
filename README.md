@@ -30,7 +30,7 @@ Creates a passwordless login for username *user* on server *hostname*.
 Note: You will be prompted twice for the user's password for the very
 last time.
 
-### Don't login after create 
+#### Don't login after create 
 
 ```bash
 $ create-ssh-login -n user@ip_address
@@ -39,7 +39,7 @@ $ create-ssh-login -n user@ip_address
 Creates a passwordless login for username *user* on server *ip_address*,
 but does not automatically leave you logged into the server
 
-### Non-standard ssh port
+#### Non-standard ssh port
 
 ```bash
 $ create-ssh-login -p 1234 user@hostname
@@ -61,7 +61,7 @@ To uninstall, do the following:
 
 ```bash
 $ cd /usr/local/auto-ssh
-sudo make uninstall
+$ sudo make uninstall
 ```
 # License
 
