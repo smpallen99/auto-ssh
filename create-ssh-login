@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+function usage() {
+  echo "Create a ssh login on hostname that does not require a password"
+  echo ""
+  echo "Usage: `basename $0` [-h][-?] [-n] [-p port] user@hostname  "
+  echo "       -h|?    - This help screen"
+  echo "       -p port - Non default port number"
+  echo "       -n      - don't login"
+  exit 1
+}
+
+pval=
+nflag=
+
+while getopts '?hnp:' OPTION
+do
+  case $OPTION in
+  p)    pval="-p $OPTARG"
+          ;;
+  n)    nflag=1
+          ;;
+  h)    hflag=1
+          ;;
+  ?)    hflag=1
+          ;;
+  esac
+done
+shift $(($OPTIND - 1))
+
+if [ $# -ne 1 ] || [ "$hflag" ]; then
+  usage
+  exit
+fi
+
+ssh $pval $1 "mkdir -p .ssh&&touch .ssh/authorized_keys2&&chmod 640 .ssh/authorized_keys2"
+cat ~/.ssh/id_rsa.pub | ssh $pval $1 'cat >> .ssh/authorized_keys2'
+
+if [ ! "$nflag" ]; then
+  ssh $pval $1
+fi

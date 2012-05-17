@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+function usage() {
+  echo "Create a certificate for use with ssh login"
+  echo
+  echo "Usage: `basename $0` [-h][-?] "
+  echo "       -h|? This help screen"
+  exit 1
+}
+
+
+while getopts '?h' OPTION
+do
+  case $OPTION in
+  h)    hflag=1
+          ;;
+  ?)    hflag=1
+          ;;
+  esac
+done
+shift $(($OPTIND - 1))
+
+# Change the value below options other than 1
+if [ $# -ne 0 ] || [ "$hflag" ]; then
+  usage
+  exit
+fi
+
+ssh-keygen -t rsa -q -f ~/.ssh/id_rsa -P ""
