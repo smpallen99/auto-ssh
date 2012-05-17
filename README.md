@@ -4,37 +4,65 @@
 I got tired of looking up the syntax for creating ssh logins that don't
 require a password so I created these two scripts to simplify the task.
 
-# create-ssh-cert
+## Create the ssh keys
 
-Create a certificate for later installation with [create-ssh-login]. You
+### <a id="cert" />create-ssh-cert
+
+Create a certificate for later installation with
+[create-ssh-login](#login). You
 only need to run this once. It creates the public and private rsa keys.
 
-# create-ssh-login
+## Create the ssh login
 
-Copies the public rsa key created by [create-ssh-cert] to the remote
+### <a id="login" />create-ssh-login
+
+Copies the public rsa key created by [create-ssh-cert](#cert) to the remote
 server which you would like to login without a password.
 
-## create-ssh-login user@hostname
+#### Standard login
+
+```bash
+$ create-ssh-login user@hostname
+```
 
 Creates a passwordless login for username *user* on server *hostname*.
 
 Note: You will be prompted twice for the user's password for the very
 last time.
 
-## create-ssh-login -n user@ip_address
+### Don't login after create 
+
+```bash
+$ create-ssh-login -n user@ip_address
+```
 
 Creates a passwordless login for username *user* on server *ip_address*,
 but does not automatically leave you logged into the server
 
-## create-ssh-login -p 1234 user@hostname
+### Non-standard ssh port
+
+```bash
+$ create-ssh-login -p 1234 user@hostname
+```
 
 Creates a passwordless login for username *user* on server *hostname*
 for ssh running on port *1234*.
 
 # Installation
 
-TBD
+To install auto-ssh, please use our [automatic
+installer](https://github.com/smpallen99/auto-ssh/blob/master/bootstrap.sh).
 
+```bash
+$ curl -Lo- http://bit.ly/auto-ssh-bootstrap | bash
+```
+
+To uninstall, do the following:
+
+```bash
+$ cd /usr/local/auto-ssh
+sudo make uninstall
+```
 # License
 
 (The MIT License)
